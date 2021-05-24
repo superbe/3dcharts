@@ -1,3 +1,15 @@
+fetch('flare-2.json').then(function (response) {
+	if (response.ok) {
+		response.json().then(function (json) {
+			//products = json;
+			//initialize();
+			console.log(json);
+			//main(json);
+		});
+	} else {
+		console.log('Network request for products.json failed with response ' + response.status + ': ' + response.statusText);
+	}
+});
 var treeData =
 {
 	"name": "Top Level",
@@ -5,15 +17,13 @@ var treeData =
 		{
 			"name": "Level 2: A",
 			"children": [
-				{ "name": "Son of A", "value": 2313},
-				{ "name": "Daughter of A", "value": 2314}
+				{ "name": "Son of A" },
+				{ "name": "Daughter of A" }
 			]
 		},
 		{ "name": "Level 2: B" }
 	]
 };
-
-var treeData = {}
 
 // Set the dimensions and margins of the diagram
 var margin = { top: 20, right: 90, bottom: 30, left: 90 },
@@ -177,9 +187,9 @@ function update(source) {
 	function diagonal(s, d) {
 
 		path = `M ${s.y} ${s.x}
-					C ${(s.y + d.y) / 2} ${s.x},
-					  ${(s.y + d.y) / 2} ${d.x},
-					  ${d.y} ${d.x}`
+            C ${(s.y + d.y) / 2} ${s.x},
+              ${(s.y + d.y) / 2} ${d.x},
+              ${d.y} ${d.x}`
 
 		return path
 	}
@@ -196,19 +206,3 @@ function update(source) {
 		update(d);
 	}
 }
-
-fetch('flare-2.json').then(function (response) {
-	if (response.ok) {
-		response.json().then(function (json) {
-			//products = json;
-			//initialize();
-			console.log(json);
-
-			treeData = json;
-
-			update(json);
-		});
-	} else {
-		console.log('Network request for products.json failed with response ' + response.status + ': ' + response.statusText);
-	}
-});
