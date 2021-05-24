@@ -1,11 +1,11 @@
-// Определяем отступы для диаграммы
+// РћРїСЂРµРґРµР»СЏРµРј РѕС‚СЃС‚СѓРїС‹ РґР»СЏ РґРёР°РіСЂР°РјРјС‹
 var margin = { top: 20, right: 90, bottom: 30, left: 90 },
 	width = 960 - margin.left - margin.right,
 	height = 500 - margin.top - margin.bottom;
 
-// Добавляем объект svg в тело страницы.
-// Добавляем элемент 'group' к 'svg' и перемещаем 
-// элемент 'group' к верхнему левому краю.
+// Р”РѕР±Р°РІР»СЏРµРј РѕР±СЉРµРєС‚ svg РІ С‚РµР»Рѕ СЃС‚СЂР°РЅРёС†С‹.
+// Р”РѕР±Р°РІР»СЏРµРј СЌР»РµРјРµРЅС‚ 'group' Рє 'svg' Рё РїРµСЂРµРјРµС‰Р°РµРј 
+// СЌР»РµРјРµРЅС‚ 'group' Рє РІРµСЂС…РЅРµРјСѓ Р»РµРІРѕРјСѓ РєСЂР°СЋ.
 var svg = d3.select("body").append("svg")
 	.attr("width", width + margin.right + margin.left)
 	.attr("height", height + margin.top + margin.bottom)
@@ -15,7 +15,7 @@ var svg = d3.select("body").append("svg")
 
 var i = 0, duration = 750, root;
 
-// Объявляем древовидную структуру и назначаем размер.
+// РћР±СЉСЏРІР»СЏРµРј РґСЂРµРІРѕРІРёРґРЅСѓСЋ СЃС‚СЂСѓРєС‚СѓСЂСѓ Рё РЅР°Р·РЅР°С‡Р°РµРј СЂР°Р·РјРµСЂ.
 var treemap = d3.tree().size([height, width]);
 
 fetch('flare-2.json').then(function (response) {
