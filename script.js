@@ -1,16 +1,3 @@
-fetch('flare-2.json').then(function (response) {
-	if (response.ok) {
-		response.json().then(function (json) {
-			//products = json;
-			//initialize();
-			console.log(json);
-			main(json);
-		});
-	} else {
-		console.log('Network request for products.json failed with response ' + response.status + ': ' + response.statusText);
-	}
-});
-
 //var treeData =
 //{
 //	"name": "Top Level",
@@ -210,3 +197,16 @@ function update(source) {
 		update(d);
 	}
 }
+
+fetch('flare-2.json').then(function (response) {
+	if (response.ok) {
+		response.json().then(function (json) {
+			//products = json;
+			//initialize();
+			console.log(json);
+			main(json);
+		});
+	} else {
+		console.log('Network request for products.json failed with response ' + response.status + ': ' + response.statusText);
+	}
+});
