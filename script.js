@@ -40,30 +40,30 @@ fetch('flare-2.json').then(function (response) {
 	}
 });
 
-var treeData =
-{
-	"name": "Top Level",
-	"children": [
-		{
-			"name": "Level 2: A",
-			"children": [
-				{ "name": "Son of A" },
-				{ "name": "Daughter of A" }
-			]
-		},
-		{ "name": "Level 2: B" }
-	]
-};
+//var treeData =
+//{
+//	"name": "Top Level",
+//	"children": [
+//		{
+//			"name": "Level 2: A",
+//			"children": [
+//				{ "name": "Son of A" },
+//				{ "name": "Daughter of A" }
+//			]
+//		},
+//		{ "name": "Level 2: B" }
+//	]
+//};
 
-// Assigns parent, children, height, depth
-root = d3.hierarchy(treeData, function (d) { return d.children; });
-root.x0 = height / 2;
-root.y0 = 0;
+//// Assigns parent, children, height, depth
+//root = d3.hierarchy(treeData, function (d) { return d.children; });
+//root.x0 = height / 2;
+//root.y0 = 0;
 
-// Collapse after the second level
-root.children.forEach(collapse);
+//// Collapse after the second level
+//root.children.forEach(collapse);
 
-update(root);
+//update(root);
 
 // Collapse the node and all it's children
 function collapse(d) {
