@@ -1,17 +1,17 @@
-//var treeData =
-//{
-//	"name": "Top Level",
-//	"children": [
-//		{
-//			"name": "Level 2: A",
-//			"children": [
-//				{ "name": "Son of A", "value": 2313},
-//				{ "name": "Daughter of A", "value": 2314}
-//			]
-//		},
-//		{ "name": "Level 2: B" }
-//	]
-//};
+var treeData =
+{
+	"name": "Top Level",
+	"children": [
+		{
+			"name": "Level 2: A",
+			"children": [
+				{ "name": "Son of A", "value": 2313},
+				{ "name": "Daughter of A", "value": 2314}
+			]
+		},
+		{ "name": "Level 2: B" }
+	]
+};
 
 var treeData = {}
 
@@ -203,6 +203,9 @@ fetch('flare-2.json').then(function (response) {
 			//products = json;
 			//initialize();
 			console.log(json);
+
+			treeData = json;
+
 			update(json);
 		});
 	} else {
