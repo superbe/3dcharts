@@ -141,22 +141,19 @@ var i = 0, duration = 750, root;
 // Объявляем древовидную структуру и назначаем размер.
 var treemap = d3.tree().size([height, width]);
 
+// Отстроили дерево.
+function buildTree(jdata) {
+	root = d3.hierarchy(jdata, function (d) { return d.children; });
+	root.x0 = height / 2;
+	root.y0 = 0;
+	root.children.forEach(collapse);
+	update(root);
+}
+
 fetch('flare-2.json').then(function (response) {
 	if (response.ok) {
 		response.json().then(function (json) {
-			//products = json;
-			//initialize();
-			console.log(json);
-
-			// Assigns parent, children, height, depth
-			root = d3.hierarchy(json, function (d) { return d.children; });
-			root.x0 = height / 2;
-			root.y0 = 0;
-
-			// Collapse after the second level
-			root.children.forEach(collapse);
-
-			update(root);
+			buildTree(json);
 		});
 	} else {
 		console.log('Network request for products.json failed with response ' + response.status + ': ' + response.statusText);
