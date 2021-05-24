@@ -4,7 +4,16 @@ fetch('flare-2.json').then(function (response) {
 			//products = json;
 			//initialize();
 			console.log(json);
-			//main(json);
+
+			// Assigns parent, children, height, depth
+			root = d3.hierarchy(json, function (d) { return d.children; });
+			root.x0 = height / 2;
+			root.y0 = 0;
+
+			// Collapse after the second level
+			root.children.forEach(collapse);
+
+			update(root);
 		});
 	} else {
 		console.log('Network request for products.json failed with response ' + response.status + ': ' + response.statusText);
