@@ -4,76 +4,62 @@ fetch('flare-2.json').then(function (response) {
 			//products = json;
 			//initialize();
 			console.log(json);
+			main(json);
 		});
 	} else {
 		console.log('Network request for products.json failed with response ' + response.status + ': ' + response.statusText);
 	}
 });
 
+//var treeData =
+//{
+//	"name": "Top Level",
+//	"children": [
+//		{
+//			"name": "Level 2: A",
+//			"children": [
+//				{ "name": "Son of A", "value": 2313},
+//				{ "name": "Daughter of A", "value": 2314}
+//			]
+//		},
+//		{ "name": "Level 2: B" }
+//	]
+//};
 
-//function getData(file, callback) {
-//	var rawFile = new XMLHttpRequest();
-//	rawFile.overrideMimeType("application/json");
-//	rawFile.open("GET", file, true);
-//	rawFile.onreadystatechange = function () {
-//		if (rawFile.readyState === 4 && rawFile.status == "200") {
-//			callback(rawFile.responseText);
-//		}
-//	}
-//	rawFile.send();
-//}
+function main(treeData) {
 
-//getData("./flare-2.json", function (text) {
-//	var data = JSON.parse(text);
-//	console.log(data);
-//});
+	// Set the dimensions and margins of the diagram
+	var margin = { top: 20, right: 90, bottom: 30, left: 90 },
+		width = 960 - margin.left - margin.right,
+		height = 500 - margin.top - margin.bottom;
 
-var treeData =
-{
-	"name": "Top Level",
-	"children": [
-		{
-			"name": "Level 2: A",
-			"children": [
-				{ "name": "Son of A", "value": 2313},
-				{ "name": "Daughter of A", "value": 2314}
-			]
-		},
-		{ "name": "Level 2: B" }
-	]
-};
+	// append the svg object to the body of the page
+	// appends a 'group' element to 'svg'
+	// moves the 'group' element to the top left margin
+	var svg = d3.select("body").append("svg")
+		.attr("width", width + margin.right + margin.left)
+		.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate("
+			+ margin.left + "," + margin.top + ")");
 
-// Set the dimensions and margins of the diagram
-var margin = { top: 20, right: 90, bottom: 30, left: 90 },
-	width = 960 - margin.left - margin.right,
-	height = 500 - margin.top - margin.bottom;
+	var i = 0,
+		duration = 750,
+		root;
 
-// append the svg object to the body of the page
-// appends a 'group' element to 'svg'
-// moves the 'group' element to the top left margin
-var svg = d3.select("body").append("svg")
-	.attr("width", width + margin.right + margin.left)
-	.attr("height", height + margin.top + margin.bottom)
-	.append("g")
-	.attr("transform", "translate("
-		+ margin.left + "," + margin.top + ")");
+	// declares a tree layout and assigns the size
+	var treemap = d3.tree().size([height, width]);
 
-var i = 0,
-	duration = 750,
-	root;
+	// Assigns parent, children, height, depth
+	root = d3.hierarchy(treeData, function (d) { return d.children; });
+	root.x0 = height / 2;
+	root.y0 = 0;
 
-// declares a tree layout and assigns the size
-var treemap = d3.tree().size([height, width]);
+	// Collapse after the second level
+	root.children.forEach(collapse);
 
-// Assigns parent, children, height, depth
-root = d3.hierarchy(treeData, function (d) { return d.children; });
-root.x0 = height / 2;
-root.y0 = 0;
-
-// Collapse after the second level
-root.children.forEach(collapse);
-
-update(root);
+	update(root);
+}
 
 // Collapse the node and all it's children
 function collapse(d) {
