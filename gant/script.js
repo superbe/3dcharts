@@ -31,7 +31,6 @@ function update(series, xScale, yScale) {
             .enter()
             .append('rect')
             .attr('x', serie => xScale(serie.start))
-            .attr('y', serie => yScale(serie.name) + yScale.bandwidth() * 0.25)
             .attr('width', serie => xScale(serie.end) - xScale(serie.start))
             .attr('height', yScale.bandwidth() * 0.5)
             .attr('fill', serie => serie.fill)
