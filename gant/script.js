@@ -79,14 +79,14 @@ fetch('data.json').then(function (response) {
 		response.json().then(function (json) {
 			//buildTree(json);
 			
-			series = datas.map(data => ({
+			series = json.map(data => ({
 				name: data.name,
 				start: new Date(data.start),
 				end: new Date(data.end),
 				fill: data.fill
 			}))
 			
-			console.log(series);
+			console.log(series); 
 			
 			
 		});
