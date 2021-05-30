@@ -1,7 +1,6 @@
 // Определяем размеры, поля и отступы.
-const margin = { top: 20, right: 90, bottom: 30, left: 90 },
-const padding = 50;
-
+let margin = { top: 20, right: 90, bottom: 30, left: 90 },
+let padding = 50;
 let width = 960 - margin.left - margin.right,
 let height = 500 - margin.top - margin.bottom;
 let innerWidth = width - padding * 2;
