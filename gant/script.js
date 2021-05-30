@@ -1,11 +1,10 @@
+// Определяем размеры, поля и отступы.
+const margin = { top: 20, right: 90, bottom: 30, left: 90 },
+const width = 960 - margin.left - margin.right,
+const height = 500 - margin.top - margin.bottom;
 const padding = 50;
 const innerWidth = width - padding * 2;
 const innerHeight = height - padding * 2;
-
-// Определяем отступы для диаграммы.
-var margin = { top: 20, right: 90, bottom: 30, left: 90 },
-	width = 960 - margin.left - margin.right,
-	height = 500 - margin.top - margin.bottom;
 
 // Добавляем объект svg в тело страницы.
 // Добавляем элемент 'group' к 'svg' и перемещаем 
