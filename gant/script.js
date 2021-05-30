@@ -49,7 +49,7 @@ function calcExtent(series) {
 }
 
 function preProcess(jdata) {
-	return json.map(data => ({
+	return jdata.map(data => ({
 				name: data.name,
 				start: new Date(data.start),
 				end: new Date(data.end),
