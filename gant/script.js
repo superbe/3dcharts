@@ -12,41 +12,14 @@ const xAxisLayer = axisLayer.append('g');
 const yAxisLayer = axisLayer.append('g');
 const tasksLayer = rootLayer.append('g');
 
-let series = [];
-let xExtent;
-let yExtent;
-let xScale;
-let yScale;
-let xAxis;
-let yAxis;
 
-const preProcess = () => {
-  series = datas.map(data => ({
-    name: data.name,
-    start: new Date(data.start),
-    end: new Date(data.end),
-    fill: data.fill
-  }))
-}
 
-const calcExtent = () => {
-  xExtent = [d3.min(series, serie => serie.start), d3.max(series, serie => serie.end)];
-}
 
-const calcScale = () => {
-  xScale = d3.scaleTime().range([0, innerWidth]).domain(xExtent);
-  yScale = d3.scaleBand().range([0, innerHeight]).domain(series.map(serie => serie.name));
-}
 
-const paintAxis = () => {
-  xAxis = d3.axisBottom().scale(xScale);
-  yAxis = d3.axisLeft().scale(yScale);
-  
-  yAxisLayer.call(yAxis);
-  xAxisLayer.call(xAxis);
-}
 
-const paintTasks = () => {
+
+
+function paintTasks (series) {
   tasksLayer.selectAll('rect')
             .data(series)
             .enter()
@@ -58,37 +31,45 @@ const paintTasks = () => {
             .attr('fill', serie => serie.fill)
 }
 
-function buildGant(jdata) {
-	root = d3.hierarchy(jdata, function (d) { return d.children; });
-	root.x0 = height / 2;
-	root.y0 = 0;
-	root.children.forEach(collapse);
-	update(root);
-	
-	
-	preProcess();
-	calcExtent();
-	calcScale();
-	paintAxis();
-	paintTasks();	
+function paintAxis(xScale, yScale) {
+  xAxisLayer.call(d3.axisBottom().scale(xScale));
+  yAxisLayer.call(d3.axisLeft().scale(yScale));
 }
 
+function calcXScale(series, xExtent, width) {
+  return d3.scaleTime().range([0, innerWidth]).domain(xExtent);
+}
 
-fetch('data.json').then(function (response) {
-	if (response.ok) {
-		response.json().then(function (json) {
-			//buildTree(json);
-			
-			series = json.map(data => ({
+function calcYScale(series, height) {
+  return d3.scaleBand().range([0, innerHeight]).domain(series.map(serie => serie.name));
+}
+
+function calcExtent(series) {
+  return [d3.min(series, serie => serie.start), d3.max(series, serie => serie.end)];
+}
+
+function preProcess(jdata) {
+	return json.map(data => ({
 				name: data.name,
 				start: new Date(data.start),
 				end: new Date(data.end),
 				fill: data.fill
-			}))
-			
-			console.log(series); 
-			
-			
+			}));
+}
+
+function buildGant(jdata) {
+	let series = preProcess(jdata);
+	let xExtent = calcExtent(series);
+	let xScale = calcXScale(series, xExtent, innerWidth);
+	let yScale = calcYScale(series, innerHeight);
+	paintAxis(xScale, yScale);
+	paintTasks(series);	
+}
+
+fetch('data.json').then(function (response) {
+	if (response.ok) {
+		response.json().then(function (json) {
+			buildGant(json);
 		});
 	} else {
 		console.log('Network request for products.json failed with response ' + response.status + ': ' + response.statusText);
