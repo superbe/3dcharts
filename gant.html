@@ -1,27 +1,30 @@
 ﻿<!DOCTYPE html>
-<meta charset="UTF-8">
-<style>
+<html>
+	<head>
+		<title>Примеры диаграмм 3D</title>
+		<meta charset="UTF-8">
+		<style>
+			.node circle {
+				fill: #fff;
+				stroke: steelblue;
+				stroke-width: 3px;
+			}
 
-	.node circle {
-		fill: #fff;
-		stroke: steelblue;
-		stroke-width: 3px;
-	}
+			.node text {
+				font: 12px sans-serif;
+			}
 
-	.node text {
-		font: 12px sans-serif;
-	}
-
-	.link {
-		fill: none;
-		stroke: #ccc;
-		stroke-width: 2px;
-	}
-</style>
-
-<body>
-
-	<!-- load the d3.js library -->
-	<script src="https://d3js.org/d3.v4.min.js"></script>
-	<script src="script.js"></script>
-</body>
+			.link {
+				fill: none;
+				stroke: #ccc;
+				stroke-width: 2px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Дерево</h1>
+		<p><a href="tree.html">На главную</a></p>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<script src="script.js"></script>
+	</body>
+</html>
