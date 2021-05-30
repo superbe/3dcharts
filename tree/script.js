@@ -150,7 +150,7 @@ function buildTree(jdata) {
 	update(root);
 }
 
-fetch('flare-2.json').then(function (response) {
+fetch('data.json').then(function (response) {
 	if (response.ok) {
 		response.json().then(function (json) {
 			buildTree(json);

@@ -20,39 +20,6 @@ let yScale;
 let xAxis;
 let yAxis;
 
-const datas = [
-  {
-    "name": "Task1",
-    "start": "2020/10/09 01:00:00",
-    "end": "2020/10/09 02:00:00",
-    "fill": "#b3e2cd"
-  },
-  {
-    "name": "Task2",
-    "start": "2020/10/09 02:00:00",
-    "end": "2020/10/09 03:00:00",
-    "fill": "#fdcdac"
-  },
-  {
-    "name": "Task3",
-    "start": "2020/10/09 02:00:00",
-    "end": "2020/10/09 04:00:00",
-    "fill": "#cbd5e8"
-  },
-  {
-    "name": "Task4",
-    "start": "2020/10/09 03:00:00",
-    "end": "2020/10/09 04:00:00",
-    "fill": "#f4cae4"
-  },
-  {
-    "name": "Task5",
-    "start": "2020/10/09 03:00:00",
-    "end": "2020/10/09 05:00:00",
-    "fill": "#e6f5c9"
-  }
-];
-
 const preProcess = () => {
   series = datas.map(data => ({
     name: data.name,
@@ -91,9 +58,41 @@ const paintTasks = () => {
             .attr('fill', serie => serie.fill)
 }
 
+function buildGant(jdata) {
+	root = d3.hierarchy(jdata, function (d) { return d.children; });
+	root.x0 = height / 2;
+	root.y0 = 0;
+	root.children.forEach(collapse);
+	update(root);
+	
+	
+	preProcess();
+	calcExtent();
+	calcScale();
+	paintAxis();
+	paintTasks();	
+}
 
-preProcess();
-calcExtent();
-calcScale();
-paintAxis();
-paintTasks();
+
+fetch('data.json').then(function (response) {
+	if (response.ok) {
+		response.json().then(function (json) {
+			//buildTree(json);
+			
+			series = datas.map(data => ({
+				name: data.name,
+				start: new Date(data.start),
+				end: new Date(data.end),
+				fill: data.fill
+			}))
+			
+			console.log(series);
+			
+			
+		});
+	} else {
+		console.log('Network request for products.json failed with response ' + response.status + ': ' + response.statusText);
+	}
+});
+
+
