@@ -1,11 +1,28 @@
-console.clear();
-const width = 800;
-const height = 600;
-const padding = 50;
-const innerWidth = width - padding * 2;
-const innerHeight = height - padding * 2;
 
-const svg = d3.select('svg').attr('width', width).attr('height', height);
+// Определяем отступы для диаграммы
+var margin = { top: 20, right: 90, bottom: 30, left: 90 },
+	width = 960 - margin.left - margin.right,
+	height = 500 - margin.top - margin.bottom;
+
+// Добавляем объект svg в тело страницы.
+// Добавляем элемент 'group' к 'svg' и перемещаем 
+// элемент 'group' к верхнему левому краю.
+var svg = d3.select("body").append("svg")
+	.attr("width", width + margin.right + margin.left)
+	.attr("height", height + margin.top + margin.bottom)
+	.append("g")
+	.attr("transform", "translate("
+		+ margin.left + "," + margin.top + ")");
+
+
+
+// const width = 800;
+// const height = 600;
+// const padding = 50;
+// const innerWidth = width - padding * 2;
+// const innerHeight = height - padding * 2;
+
+// const svg = d3.select('svg').attr('width', width).attr('height', height);
 const rootLayer = svg.append('g').attr('transform', `translate(${padding}, ${padding})`);
 const axisLayer = rootLayer.append('g');
 const xAxisLayer = axisLayer.append('g');
