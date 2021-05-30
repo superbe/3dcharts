@@ -12,14 +12,7 @@ const xAxisLayer = axisLayer.append('g');
 const yAxisLayer = axisLayer.append('g');
 const tasksLayer = rootLayer.append('g');
 
-
-
-
-
-
-
-
-function paintTasks (series) {
+function update(series, xScale, yScale) {
   tasksLayer.selectAll('rect')
             .data(series)
             .enter()
@@ -63,7 +56,7 @@ function buildGant(jdata) {
 	let xScale = calcXScale(series, xExtent, innerWidth);
 	let yScale = calcYScale(series, innerHeight);
 	paintAxis(xScale, yScale);
-	paintTasks(series);	
+	update(series, xScale, yScale);	
 }
 
 fetch('data.json').then(function (response) {
