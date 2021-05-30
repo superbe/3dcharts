@@ -1,4 +1,6 @@
 const padding = 50;
+const innerWidth = width - padding * 2;
+const innerHeight = height - padding * 2;
 
 // Определяем отступы для диаграммы
 var margin = { top: 20, right: 90, bottom: 30, left: 90 },
@@ -86,5 +88,3 @@ fetch('data.json').then(function (response) {
 		console.log('Network request for products.json failed with response ' + response.status + ': ' + response.statusText);
 	}
 });
-
-
